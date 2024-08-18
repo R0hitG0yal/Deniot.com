@@ -1,84 +1,82 @@
 import "./App.css";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  
+  const [loading, setLoading] = useState(true);
 
-  const container = useRef(null);
-  useGSAP(() => {
-    gsap.to(".box", {
-      // scale: 1.5,
-      borderTop: "200px solid gray",
-      borderBottom: "200px solid gray",
-      borderLeft: "500px solid gray",
-      borderRight: "500px solid gray",
-
+  useEffect(() => {
+    const timeline = gsap.timeline({
       scrollTrigger: {
-        trigger: ".box",
-        // toggleActions: "pause restart none none",
-        start: "10vh",
-        end: "+=7vh",
-        pin: true,
+        trigger: ".imageContainer",
+        start: "top top", // Start when the top of .imageContainer hits 10% from top of the viewport
+        end: "+=650px", // End after scrolling 600px
+        scrub: 2,
         // markers: true,
-        // end: "+=50",
-        scrub: true,
-      },
-    }); // <-- automatically reverted
-    gsap.to(".box", {
-      imageRenderer: true,
-      borderLeft: "250px solid gray",
-      borderRight: "250px solid gray",
-      scrollTrigger: {
-        trigger: ".box",
-        // markers: true,
-        pin: true,
-        // toggleActions: "pause restart none none",
-        start: "15vh",
-        end: "+=10vh",
-        scrub: true,
+        pin: true, // Pin the element in place
       },
     });
-    gsap.to(".box", {
-      imageRenderer: true,
-      borderTop: "1px solid transparent",
-      borderBottom: "1px solid transparent",
-      borderLeft: "1px solid transparent",
-      borderRight: "1px solid transparent",
 
-      scrollTrigger: {
-        trigger: ".box",
-        // markers: true,
-        pin: true,
-        // toggleActions: "pause restart none none",
-        start: "27vh",
-        end: "+=10vh",
-        scrub: true,
-      },
-    });
-  }, [container]);
-
-  // const data: string[] = [
-  //   "https://plus.unsplash.com/premium_photo-1661765778256-169bf5e561a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1571781418606-70265b9cce90?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1543248939-ff40856f65d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
-  //   "https://images.unsplash.com/photo-1505577058444-a3dab90d4253?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww",
-  //   "https://images.unsplash.com/photo-1463797221720-6b07e6426c24?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww",
-  //   "https://plus.unsplash.com/premium_photo-1681113076872-c74b8926e70c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww",
-  //   "https://images.unsplash.com/photo-1525896544042-354764aa27e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww",
-  //   "https://plus.unsplash.com/premium_photo-1686090449342-f8f94e6cbb9d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww",
-  // ];
+    timeline
+      .fromTo(
+        ".imageContainer #box",
+        {
+          borderTop: "250px solid gray",
+          borderBottom: "250px solid gray",
+          borderLeft: "550px solid gray",
+          borderRight: "550px solid gray",
+        },
+        {
+          borderTop: "200px solid gray",
+          borderBottom: "200px solid gray",
+          borderLeft: "500px solid gray",
+          borderRight: "500px solid gray",
+          duration: 1,
+        }
+      )
+      .fromTo(
+        ".imageContainer #box",
+        {
+          borderTop: "200px solid gray",
+          borderBottom: "200px solid gray",
+          borderLeft: "500px solid gray",
+          borderRight: "500px solid gray",
+        },
+        {
+          borderTop: "200px solid gray",
+          borderBottom: "200px solid gray",
+          borderLeft: "300px solid gray",
+          borderRight: "300px solid gray",
+          duration: 1,
+        }
+      )
+      .fromTo(
+        ".imageContainer #box",
+        {
+          borderTop: "200px solid gray",
+          borderBottom: "200px solid gray",
+          borderLeft: "300px solid gray",
+          borderRight: "300px solid gray",
+        },
+        {
+          borderTop: "0px solid gray",
+          borderBottom: "0px solid gray",
+          borderLeft: "0px solid gray",
+          borderRight: "0px solid gray",
+          duration: 1,
+        }
+      )
+      .to(".imageContainer", {
+        transform: "translateY(-100%)",
+        duration: 1,
+      });
+  }, []);
 
   return (
-    <div ref={container} className="container">
+    <div className="container">
       <div className="imageContainer">
         <nav id="nav-container">
           <a href="/" aria-label="Homepage">
@@ -161,12 +159,33 @@ function App() {
             <a href="">Contact</a>
           </div>
         </nav>
-        <div id="box" className="box">
-          {/* <img src="https://plus.unsplash.com/premium_photo-1661765778256-169bf5e561a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D" /> */}
+        <div id="box" className="box"></div>
+        <div>
+          {loading ? (
+            <img
+              className="w-screen h-full"
+              src="https://i.vimeocdn.com/video/1045506040-3622c5586953046b156926fb6d0d6681933575e41fd746289e4cea5444a289ab-d.jpg"
+            ></img>
+          ) : (
+            <></>
+          )}
+          <iframe
+            src="https://player.vimeo.com/video/505223053?controls=0&loop=true&autoplay=true&muted=true&gesture=media&playsinline=true&byline=false&portrait=false&title=false&speed=true&transparent=false"
+            allowFullScreen
+            allow="autoplay,fullscreen,picture-in-picture"
+            title="Player for PRJCT2 FINALE"
+            data-ready="true"
+            tabIndex={-1}
+            onLoad={() => setLoading(false)}
+          ></iframe>
         </div>
         <p contentEditable id="quote">
           Design your life and dreams
         </p>
+      </div>
+      <div className="title ">
+        <span>Jane-Louis </span>
+        <span>Denot</span>
       </div>
     </div>
   );

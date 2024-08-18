@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,34 +9,31 @@
 }
 
 .box {
-  /* Position */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  border-left: 550px solid #bbbbbb;
-  border-right: 550px solid #bbbbbb;
-  border-top: 250px solid #bbbbbb;
-  border-bottom: 250px solid #bbbbbb;
+  width: 100%;
+  height: 100%;
   /* Box settings */
-  overflow: hidden;
-  display: inline-block;
+  overflow-x: hidden;
+}
+
+iframe{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
 }
 
 .imageContainer {
-  background-image: url("https://plus.unsplash.com/premium_photo-1661765778256-169bf5e561a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .container {
-  width: 100vw;
-  height: 1000vh;
+  width: 100%;
+  height: 300vh;
   overflow: hidden;
 }
 
@@ -67,12 +68,13 @@ nav div a {
   font-size: 75px;
   font-family: zirkon-light, sans-serif;
   font-weight: 100;
-  color: black;
+  color: white;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-45%, -50%);
-  z-index: 1;
+  z-index: 2;
+
 }
 
 /* :root {
